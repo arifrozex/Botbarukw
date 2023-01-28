@@ -219,16 +219,12 @@ def send_text(message):
         if (user_id not in bonus.keys()) or (cur_time - bonus[user_id] > 60*60*24):
             data['balance'][(user)] += Daily_bonus
             bot.send_message(
-                user_id, f"       Kamu dapat menukarkan *Kupon* mu 
-100 Kupon !!!\n\n Bagikan ke Group Agar banyak mendapatkan Kupon agar bisa ditukarkan ...!!!\n\n
-🎟 Penukaran Secara Otomatis, Jika Sudah Sesuai Maka link Vip akan dikirim kan  \n\n \n\nSelamat anda mendapatkan Bonus  {Daily_bonus} {TOKEN}")
+                user_id, f" Kamu dapat menukarkan *Kupon* mu 100 Kupon !!!\n\n Bagikan ke Group Agar banyak mendapatkan Kupon agar bisa ditukarkan ...!!!\n\n🎟 Penukaran Secara Otomatis, Jika Sudah Sesuai Maka link Vip akan dikirim kan  \n\n \n\nSelamat anda mendapatkan Bonus  {Daily_bonus} {TOKEN}")
             bonus[user_id] = cur_time
             json.dump(data, open('users.json', 'w'))
         else:
             bot.send_message(
-                message.chat.id, "     Kamu dapat menukarkan *Kupon* mu 
-100 Kupon !!!\n\n Bagikan ke Group Agar banyak mendapatkan Kupon agar bisa ditukarkan ...!!!\n\n
-🎟 Penukaran Secara Otomatis, Jika Sudah Sesuai Maka link Vip akan dikirim kan   \n\n❌*Yah bonus sudah habis, Silakhan besok lagi*",parse_mode="markdown")
+                message.chat.id, "     Kamu dapat menukarkan *Kupon* mu  100 Kupon !!!\n\n Bagikan ke Group Agar banyak mendapatkan Kupon agar bisa ditukarkan ...!!!\n\n🎟 Penukaran Secara Otomatis, Jika Sudah Sesuai Maka link Vip akan dikirim kan   \n\n❌*Yah bonus sudah habis, Silakhan besok lagi*",parse_mode="markdown")
         return
 
     if message.text == "📊Jumlah Teman":
