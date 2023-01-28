@@ -30,7 +30,7 @@ def menu(id):
     keyboard = telebot.types.ReplyKeyboardMarkup(True)
     keyboard.row('🆔 Akun saya')
     keyboard.row('🙌🏻 UNDANG', '🏡 BACKUP VIP ', '💸 TUKAR VIP')
-    keyboard.row('⚙️ HUB ADMIN', '📊Jumlah Teman)
+    keyboard.row('⚙️ HUB ADMIN', '📊Jumlah Teman')
     bot.send_message(id, "*🏡 Home*", parse_mode="Markdown",
                      reply_markup=keyboard)
 
