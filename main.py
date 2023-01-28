@@ -63,8 +63,8 @@ def start(message):
         print(data)
         markup = telebot.types.InlineKeyboardMarkup()
         markup.add(telebot.types.InlineKeyboardButton(
-           text='🤼‍♂️ Joined', callback_data='check'))
-        msg_start = "*🍔 To Use This Bot You Need To Join This Channel - "
+           text='🤼‍♂️ Mulai', callback_data='check'))
+        msg_start = "*🟢 Untuk silahkan bergabung dulu 👉  - "
         for i in CHANNELS:
             msg_start += f"\n➡️ {i} \n"
         msg_start += "*"
@@ -97,8 +97,8 @@ def start(message):
         print(data)
         markups = telebot.types.InlineKeyboardMarkup()
         markups.add(telebot.types.InlineKeyboardButton(
-            text='🤼‍♂️ Joined', callback_data='check'))
-        msg_start = "*🍔 To Use This Bot You Need To Join This Channel - \n➡️ @heyterbaruu *"
+            text='🤼‍♂️ Mulai', callback_data='check'))
+        msg_start = "*🟢 Untuk silahkan bergabung dulu 👉 - \n➡️ f"<b>○ KLIK SINI : <a href='https://t.me/heyterbaruu'> *"
         bot.send_message(user, msg_start,
                          parse_mode="Markdown", reply_markup=markups)
    except:
@@ -153,8 +153,8 @@ def query_handler(call):
             bot.delete_message(call.message.chat.id, call.message.message_id)
             markup = telebot.types.InlineKeyboardMarkup()
             markup.add(telebot.types.InlineKeyboardButton(
-                text='🤼‍♂️ Joined', callback_data='check'))
-            msg_start = "*🍔 To Use This Bot You Need To Join This Channel - \n➡️ @heyterbaruu*"
+                text='🤼‍♂️ Mulai', callback_data='check'))
+        msg_start = "*🟢 Untuk silahkan bergabung dulu 👉 - \n➡️ f"<b>○ KLIK SINI : <a href='https://t.me/heyterbaruu'> *"
             bot.send_message(call.message.chat.id, msg_start,
                              parse_mode="Markdown", reply_markup=markup)
    except:
