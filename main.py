@@ -98,9 +98,12 @@ def start(message):
         markups = telebot.types.InlineKeyboardMarkup()
         markups.add(telebot.types.InlineKeyboardButton(
             text='🤼‍♂️ Mulai', callback_data='check'))
-        msg_start = f"<b>🟢 Untuk silahkan bergabung dulu 👉 - \n➡️ <b>○ KLIK SINI : <a href='https://t.me/heyterbaruu'> "
+        msg_start = "*🟢 Untuk silahkan bergabung dulu 👉  - "
+        for i in CHANNELS:
+            msg_start += f"\n➡️ {i} \n"
+        msg_start += "*"
         bot.send_message(user, msg_start,
-                         parse_mode="Markdown", reply_markup=markups)
+                         parse_mode="Markdown", reply_markup=markup)
    except:
         bot.send_message(message.chat.id, "This command having error pls wait for ficing the glitch by admin")
         bot.send_message(OWNER_ID, "Your bot got an error fix it fast!\n Error on command: "+message.text)
@@ -116,7 +119,7 @@ def query_handler(call):
             user_id = call.message.chat.id
             user = str(user_id)
             bot.answer_callback_query(
-                callback_query_id=call.id, text='✅ You joined Now yu can earn money')
+                callback_query_id=call.id, text='✅ join sekarang juga')
             bot.delete_message(call.message.chat.id, call.message.message_id)
             if user not in data['refer']:
                 data['refer'][user] = True
@@ -149,14 +152,17 @@ def query_handler(call):
 
         else:
             bot.answer_callback_query(
-                callback_query_id=call.id, text='❌ You not Joined')
+                callback_query_id=call.id, text='❌ Anda belum bergabung')
             bot.delete_message(call.message.chat.id, call.message.message_id)
             markup = telebot.types.InlineKeyboardMarkup()
             markup.add(telebot.types.InlineKeyboardButton(
                 text='🤼‍♂️ Mulai', callback_data='check'))
-        msg_start = f"<b>🟢 Untuk silahkan bergabung dulu 👉 - \n➡️ <b>○ KLIK SINI : <a href='https://t.me/heyterbaruu'> "
-            bot.send_message(call.message.chat.id, msg_start,
-                             parse_mode="Markdown", reply_markup=markup)
+        msg_start = "*🟢 Untuk silahkan bergabung dulu 👉  - "
+        for i in CHANNELS:
+            msg_start += f"\n➡️ {i} \n"
+        msg_start += "*"
+        bot.send_message(user, msg_start,
+                         parse_mode="Markdown", reply_markup=markup)
    except:
         bot.send_message(call.message.chat.id, "This command having error pls wait for ficing the glitch by admin")
         bot.send_message(OWNER_ID, "Your bot got an error fix it fast!\n Error on command: "+call.data)
