@@ -310,7 +310,7 @@ def amo_with(message):
         return
     if int(message.text) < Mini_Withdraw:
         bot.send_message(
-            user_id, f"❌Kupon anda tidak cukup undang sebanyak  Agar bisa di tukarkan!! Minimal {Mini_Withdraw} {TOKEN}_", parse_mode="Markdown")
+            user_id, f"_❌Kupon anda tidak cukup undang sebanyak  Agar bisa di tukarkan!! Minimal {Mini_Withdraw} {TOKEN}_", parse_mode="Markdown")
         return
     if int(message.text) > bal:
         bot.send_message(
