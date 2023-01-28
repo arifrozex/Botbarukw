@@ -7,7 +7,7 @@ TOKEN = "TRON"
 
 BOT_TOKEN = "5861126009:AAFqHO50PoX96CMAMj-VNt-jmwWG6xLcQ2o"
 PAYMENT_CHANNEL = "@Jjnjjjgh" #add payment channel here including the '@' sign
-OWNER_ID = 1194007250 #write owner's user id here.. get it from @MissRose_Bot by /id
+OWNER_ID = 5716083446 #write owner's user id here.. get it from @MissRose_Bot by /id
 CHANNELS = ["@heyterbaruu"] #add channels to be checked here in the format - ["Channel 1", "Channel 2"] 
               #you can add as many channels here and also add the '@' sign before channel username
 Daily_bonus = 0.1 #Put daily bonus amount here!
@@ -29,8 +29,8 @@ bonus = {}
 def menu(id):
     keyboard = telebot.types.ReplyKeyboardMarkup(True)
     keyboard.row('🆔 Akun saya')
-    keyboard.row('🙌🏻 UNDANG', '🏡 BACKUP VIP ', '💸 TUKAR VIP')
-    keyboard.row('⚙️ HUB ADMIN', '📊Jumlah Teman')
+    keyboard.row('🙌🏻 UNDANG', '🏡 BACKUP VIP', '💸 TUKAR VIP')
+    keyboard.row('HUB ADMIN', '📊Jumlah Teman')
     bot.send_message(id, "*🏡 Home*", parse_mode="Markdown",
                      reply_markup=keyboard)
 
@@ -64,7 +64,7 @@ def start(message):
         markup = telebot.types.InlineKeyboardMarkup()
         markup.add(telebot.types.InlineKeyboardButton(
            text='🤼‍♂️ Masuk', callback_data='check'))
-        msg_start = "*💦Join dulu sini ya 👇 - "
+        msg_start = "*💦Join dulu sini ya 👇  - "
         for i in CHANNELS:
             msg_start += f"\n➡️ {i}\n"
         msg_start += "*"
@@ -98,7 +98,7 @@ def start(message):
         markups = telebot.types.InlineKeyboardMarkup()
         markups.add(telebot.types.InlineKeyboardButton(
             text='🤼‍♂️ Masuk', callback_data='check'))
-        msg_start = "*💦Join dulu sini ya 👇- \n➡️ @heyterbaruu*"
+        msg_start = "*💦Join dulu sini ya 👇  - \n➡️ @heyterbaruu*"
         bot.send_message(user, msg_start,
                          parse_mode="Markdown", reply_markup=markups)
    except:
@@ -135,7 +135,7 @@ def query_handler(call):
                     data['balance'][ref] += Per_Refer
                     data['referred'][ref] += 1
                     bot.send_message(
-                        ref_id, f"*Teman mu masuk 1, semangat : +{Per_Refer} {TOKEN}*", parse_mode="Markdown")
+                        ref_id, f"*🏧 New Referral on Level 1, You Got : +{Per_Refer} {TOKEN}*", parse_mode="Markdown")
                     json.dump(data, open('users.json', 'w'))
                     return menu(call.message.chat.id)
 
@@ -149,12 +149,12 @@ def query_handler(call):
 
         else:
             bot.answer_callback_query(
-                callback_query_id=call.id, text='❌ Kamu tidak join')
+                callback_query_id=call.id, text='❌ Kamu belum join silahkan join dulu klik di bagian bawah')
             bot.delete_message(call.message.chat.id, call.message.message_id)
             markup = telebot.types.InlineKeyboardMarkup()
             markup.add(telebot.types.InlineKeyboardButton(
-                text='🤼‍♂️ Joined', callback_data='check'))
-            msg_start = "*💦Join dulu sini ya 👇- \n➡️ @heyterbaruu*"
+                text='🤼‍♂️ Masuk', callback_data='check'))
+            msg_start = "*💦Join dulu sini ya 👇  - \n➡️ @heyterbaruu"
             bot.send_message(call.message.chat.id, msg_start,
                              parse_mode="Markdown", reply_markup=markup)
    except:
@@ -165,7 +165,7 @@ def query_handler(call):
 @bot.message_handler(content_types=['text'])
 def send_text(message):
    try:
-    if message.text == '🆔 Account':
+    if message.text == '🆔 Akun saya':
         data = json.load(open('users.json', 'r'))
         accmsg = '*👮 User : {}\n\n⚙️ Wallet : *`{}`*\n\n💸 Balance : *`{}`* {}*'
         user_id = message.chat.id
@@ -183,7 +183,7 @@ def send_text(message):
         msg = accmsg.format(message.from_user.first_name,
                             wallet, balance, TOKEN)
         bot.send_message(message.chat.id, msg, parse_mode="Markdown")
-    if message.text == '🙌🏻 Referrals':
+    if message.text == '🙌🏻 UNDANG':
         data = json.load(open('users.json', 'r'))
         ref_msg = "*⏯️ Total Invites : {} Users\n\n👥 Refferrals System\n\n1 Level:\n🥇 Level°1 - {} {}\n\n🔗 Referral Link ⬇️\n{}*"
 
@@ -200,22 +200,22 @@ def send_text(message):
             bot_name, message.chat.id)
         msg = ref_msg.format(ref_count, Per_Refer, TOKEN, ref_link)
         bot.send_message(message.chat.id, msg, parse_mode="Markdown")
-    if message.text == "HUB ANDMIN":
+    if message.text == "HUB ADMIN":
         user_id = message.chat.id
         user = str(user_id)
 
         keyboard = telebot.types.ReplyKeyboardMarkup(True)
         keyboard.row('🚫 Cancel')
-        send = bot.send_message(message.chat.id, "_👥@Jjnjjjgh",
+        send = bot.send_message(message.chat.id, "_hub admin sini 👥 @Jjnjjjgh_",
                                 parse_mode="Markdown", reply_markup=keyboard)
         # Next message will call the name_handler function
         bot.register_next_step_handler(message, trx_address)
-    if message.text == "🎁 Bonus":
+    if message.text == "🏡 BACKUP VIP":
         user_id = message.chat.id
         user = str(user_id)
         cur_time = int((time.time()))
         data = json.load(open('users.json', 'r'))
-        #bot.send_message(user_id, "*🎁 Bonus Button is Under Maintainance*", parse_mode="Markdown")
+        #bot.send_message(user_id, "*🏡 BACKUP VIP Button is Under Maintainance*", parse_mode="Markdown")
         if (user_id not in bonus.keys()) or (cur_time - bonus[user_id] > 60*60*24):
             data['balance'][(user)] += Daily_bonus
             bot.send_message(
@@ -227,16 +227,16 @@ def send_text(message):
                 message.chat.id, "📝*Silakan masuk groub backup @heyterbaruu*",parse_mode="markdown")
         return
 
-    if message.text == "📊Jumlah teman":
+    if message.text == "📊Jumlah Teman":
         user_id = message.chat.id
         user = str(user_id)
         data = json.load(open('users.json', 'r'))
-        msg = "*📊 Total members : {} Users\n\n🥊 Total Berhasi Tukar Vip : {} {}*"
+        msg = "*📊 Total members : {} Users\n\n🥊 Total successful Withdraw : {} {}*"
         msg = msg.format(data['total'], data['totalwith'], TOKEN)
         bot.send_message(user_id, msg, parse_mode="Markdown")
         return
 
-    if message.text == "💸 Tukar Vip":
+    if message.text == "💸 TUKAR VIP":
         user_id = message.chat.id
         user = str(user_id)
 
@@ -262,7 +262,7 @@ def send_text(message):
                 user_id, f"_❌Your balance low you should have at least {Mini_Withdraw} {TOKEN} to Withdraw_", parse_mode="Markdown")
             return
    except:
-        bot.send_message(message.chat.id, "hem kayaknya bot sedang bermasalah mohon di refresh kembal")
+        bot.send_message(message.chat.id, "This command having error pls wait for ficing the glitch by admin")
         bot.send_message(OWNER_ID, "Your bot got an error fix it fast!\n Error on command: "+message.text)
         return
 
