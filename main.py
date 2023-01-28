@@ -28,10 +28,10 @@ bonus = {}
 
 def menu(id):
     keyboard = telebot.types.ReplyKeyboardMarkup(True)
-    keyboard.row('🆔 Account')
-    keyboard.row('🙌🏻 Referrals', '🎁 Bonus', '💸 Withdraw')
-    keyboard.row('🧾 VERIFIKASI', '📊Statistics')
-    bot.send_message(id, "*🏡 Home*", parse_mode="Markdown",
+    keyboard.row('🆔 CEK SALDO')
+    keyboard.row('🙌🏻 Undang ', '🎁 Bonus', '💸 Tukar Kupon')
+    keyboard.row('🧾 VERIFIKASI ', '📊Jumlah Teman')
+    bot.send_message(id, "*🏡 Selamat datang. Silakan Bagikan Undangan anda di group lainya*", parse_mode="Markdown",
                      reply_markup=keyboard)
 
 @bot.message_handler(commands=['start'])
@@ -63,8 +63,8 @@ def start(message):
         print(data)
         markup = telebot.types.InlineKeyboardMarkup()
         markup.add(telebot.types.InlineKeyboardButton(
-           text='🤼‍♂️ Joined', callback_data='check'))
-        msg_start = "*🍔 To Use This Bot You Need To Join This Channel - "
+           text='🤼‍♂️ Masuk', callback_data='check'))
+        msg_start = "*♥️ Untuk masuk kesini silahkan join dulu 👇 - "
         for i in CHANNELS:
             msg_start += f"\n➡️ {i}\n"
         msg_start += "*"
@@ -98,11 +98,11 @@ def start(message):
         markups = telebot.types.InlineKeyboardMarkup()
         markups.add(telebot.types.InlineKeyboardButton(
             text='🤼‍♂️ Joined', callback_data='check'))
-        msg_start = "*🍔 To Use This Bot You Need To Join This Channel - \n➡️ @ Fill your channels at line: 101 and 157*"
+        msg_start = "*♥️ Untuk masuk kesini silahkan join dulu 👇 - \n➡️ @heyterbaruu*"
         bot.send_message(user, msg_start,
                          parse_mode="Markdown", reply_markup=markups)
    except:
-        bot.send_message(message.chat.id, "This command having error pls wait for ficing the glitch by admin")
+        bot.send_message(message.chat.id, "jika bot sering bermasalah mohon tunggu sebentar hingga bot normal kembali")
         bot.send_message(OWNER_ID, "Your bot got an error fix it fast!\n Error on command: "+message.text)
         return
 
@@ -116,7 +116,7 @@ def query_handler(call):
             user_id = call.message.chat.id
             user = str(user_id)
             bot.answer_callback_query(
-                callback_query_id=call.id, text='✅ You joined Now yu can earn money')
+                callback_query_id=call.id, text='✅ Segera Masuk Sekarang')
             bot.delete_message(call.message.chat.id, call.message.message_id)
             if user not in data['refer']:
                 data['refer'][user] = True
@@ -135,7 +135,7 @@ def query_handler(call):
                     data['balance'][ref] += Per_Refer
                     data['referred'][ref] += 1
                     bot.send_message(
-                        ref_id, f"*🏧 New Referral on Level 1, You Got : +{Per_Refer} {TOKEN}*", parse_mode="Markdown")
+                        ref_id, f"*🚹 Undangan kamu  masuk Level 1, semangat : +{Per_Refer} {TOKEN}*", parse_mode="Markdown")
                     json.dump(data, open('users.json', 'w'))
                     return menu(call.message.chat.id)
 
@@ -149,25 +149,25 @@ def query_handler(call):
 
         else:
             bot.answer_callback_query(
-                callback_query_id=call.id, text='❌ You not Joined')
+                callback_query_id=call.id, text='❌ Kamu belum Join silahkan join dulu ya ..agar bisa masuk')
             bot.delete_message(call.message.chat.id, call.message.message_id)
             markup = telebot.types.InlineKeyboardMarkup()
             markup.add(telebot.types.InlineKeyboardButton(
-                text='🤼‍♂️ Joined', callback_data='check'))
-            msg_start = "*🍔 To Use This Bot You Need To Join This Channel - \n➡️ @ Fill your channels at line: 101 and 157*"
+                text='🤼‍♂️ Masuk', callback_data='check'))
+            msg_start = "*♥️ Untuk masuk kesini silahkan join dulu 👇 - \n➡️ @heyterbaruu*"
             bot.send_message(call.message.chat.id, msg_start,
                              parse_mode="Markdown", reply_markup=markup)
    except:
-        bot.send_message(call.message.chat.id, "This command having error pls wait for ficing the glitch by admin")
+        bot.send_message(call.message.chat.id, "jika bot sering bermasalah mohon tunggu sebentar hingga bot normal kembali")
         bot.send_message(OWNER_ID, "Your bot got an error fix it fast!\n Error on command: "+call.data)
         return
 
 @bot.message_handler(content_types=['text'])
 def send_text(message):
    try:
-    if message.text == '🆔 Account':
+    if message.text == '🆔 CEK SALDO':
         data = json.load(open('users.json', 'r'))
-        accmsg = '*👮 User : {}\n\n⚙️ Wallet : *`{}`*\n\n💸 Balance : *`{}`* {}*'
+        accmsg = '*👮 pengguna : {}\n\n⚙️ Data : *`{}`*\n\n💸 Kupon : *`{}`* {}*'
         user_id = message.chat.id
         user = str(user_id)
 
@@ -183,9 +183,9 @@ def send_text(message):
         msg = accmsg.format(message.from_user.first_name,
                             wallet, balance, TOKEN)
         bot.send_message(message.chat.id, msg, parse_mode="Markdown")
-    if message.text == '🙌🏻 Referrals':
+    if message.text == '🙌🏻 Undang ':
         data = json.load(open('users.json', 'r'))
-        ref_msg = "*⏯️ Total Invites : {} Users\n\n👥 Refferrals System\n\n1 Level:\n🥇 Level°1 - {} {}\n\n🔗 Referral Link ⬇️\n{}*"
+        ref_msg = "*⏯️ Jumlah undangan : {} Users\n\n👥 Undangan Tingkat\n\n1 Level:\n🥇 Level°1 - {} {}\n\n🔗 Link Anda ⬇️\n{}*"
 
         bot_name = bot.get_me().username
         user_id = message.chat.id
@@ -200,7 +200,7 @@ def send_text(message):
             bot_name, message.chat.id)
         msg = ref_msg.format(ref_count, Per_Refer, TOKEN, ref_link)
         bot.send_message(message.chat.id, msg, parse_mode="Markdown")
-    if message.text == "🧾 VERIFIKASI":
+    if message.text == "🧾 VERIFIKASI ":
         user_id = message.chat.id
         user = str(user_id)
 
@@ -219,24 +219,24 @@ def send_text(message):
         if (user_id not in bonus.keys()) or (cur_time - bonus[user_id] > 60*60*24):
             data['balance'][(user)] += Daily_bonus
             bot.send_message(
-                user_id, f"Congrats you just received {Daily_bonus} {TOKEN}")
+                user_id, f"  Kamu dapat menukarkan *Kupon* mu100 Kupon !!!\n\n Bagikan ke Group Agar banyak mendapatkan Kupon agar bisa ditukarkan ...!!!\n\n🎟 Penukaran Secara Otomatis, Jika Sudah Sesuai Maka link Vip akan dikirim kan  \n\n \n\nSelamat anda mendapatkan Bonus  {Daily_bonus} {TOKEN}")
             bonus[user_id] = cur_time
             json.dump(data, open('users.json', 'w'))
         else:
             bot.send_message(
-                message.chat.id, "❌*You can only take bonus once every 24 hours!*",parse_mode="markdown")
+                message.chat.id, "     Kamu dapat menukarkan *Kupon* mu  100 Kupon !!!\n\n Bagikan ke Group Agar banyak mendapatkan Kupon agar bisa ditukarkan ...!!!\n\n🎟 Penukaran Secara Otomatis, Jika Sudah Sesuai Maka link Vip akan dikirim kan   \n\n❌*Yah bonus sudah habis, Silakhan besok lagi*",parse_mode="markdown")
         return
 
-    if message.text == "📊Statistics":
+    if message.text == "📊Jumlah Teman":
         user_id = message.chat.id
         user = str(user_id)
         data = json.load(open('users.json', 'r'))
-        msg = "*📊 Total members : {} Users\n\n🥊 Total successful Withdraw : {} {}*"
+        msg = "*📊 Total members : {} Users\n\n🥊 Total Penukaran Kupon Kamu : {} {}*"
         msg = msg.format(data['total'], data['totalwith'], TOKEN)
         bot.send_message(user_id, msg, parse_mode="Markdown")
         return
 
-    if message.text == "💸 Withdraw":
+    if message.text == "💸 Tukar Kupon":
         user_id = message.chat.id
         user = str(user_id)
 
@@ -250,7 +250,7 @@ def send_text(message):
         bal = data['balance'][user]
         wall = data['wallet'][user]
         if wall == "none":
-            bot.send_message(user_id, "_❌ wallet Not set_",
+            bot.send_message(user_id, "*❌ VERIFIKASI* Dulu di menu 👉 🧾Verivikasi*",
                              parse_mode="Markdown")
             return
         if bal >= Mini_Withdraw:
@@ -259,10 +259,10 @@ def send_text(message):
             bot.register_next_step_handler(message, amo_with)
         else:
             bot.send_message(
-                user_id, f"_❌Your balance low you should have at least {Mini_Withdraw} {TOKEN} to Withdraw_", parse_mode="Markdown")
+                user_id, f"_❌ Kupon anda tidak cukup , undang sebanyak ² Agar bisa di tukarkan!! Minimal 👉 {Mini_Withdraw} {TOKEN} to Withdraw_", parse_mode="Markdown")
             return
    except:
-        bot.send_message(message.chat.id, "This command having error pls wait for ficing the glitch by admin")
+        bot.send_message(message.chat.id, "jika bot sering bermasalah mohon tunggu sebentar hingga bot normal kembali")
         bot.send_message(OWNER_ID, "Your bot got an error fix it fast!\n Error on command: "+message.text)
         return
 
@@ -276,7 +276,7 @@ def trx_address(message):
         data = json.load(open('users.json', 'r'))
         data['wallet'][user] = message.text
 
-        bot.send_message(message.chat.id, "*💹Your Trx wallet set to " +
+        bot.send_message(message.chat.id, "*✅ Data mu sudah tersimpan Silahkan Tukarkan " +
                          data['wallet'][user]+"*", parse_mode="Markdown")
         json.dump(data, open('users.json', 'w'))
         return menu(message.chat.id)
@@ -285,7 +285,7 @@ def trx_address(message):
             message.chat.id, "*⚠️ Silahkan Ketik  YES untuk mengisi Data*", parse_mode="Markdown")
         return menu(message.chat.id)
    except:
-        bot.send_message(message.chat.id, "This command having error pls wait for ficing the glitch by admin")
+        bot.send_message(message.chat.id, "jika bot sering bermasalah mohon tunggu sebentar hingga bot normal kembali")
         bot.send_message(OWNER_ID, "Your bot got an error fix it fast!\n Error on command: "+message.text)
         return
 
@@ -306,22 +306,22 @@ def amo_with(message):
     msg = message.text
     if msg.isdigit() == False:
         bot.send_message(
-            user_id, "_📛 Invaild value. Enter only numeric value. Try again_", parse_mode="Markdown")
+            user_id, "_📛 Tidak boleh ada Huruf, Titik, koma!! Semua angka Sesuai minimal penukaran_", parse_mode="Markdown")
         return
     if int(message.text) < Mini_Withdraw:
         bot.send_message(
-            user_id, f"_❌ Minimum withdraw {Mini_Withdraw} {TOKEN}_", parse_mode="Markdown")
+            user_id, f"_❌ Kupon anda tidak cukup , undang sebanyak ² Agar bisa di tukarkan!! Minimal {Mini_Withdraw} {TOKEN}_", parse_mode="Markdown")
         return
     if int(message.text) > bal:
         bot.send_message(
-            user_id, "_❌ You Can't withdraw More than Your Balance_", parse_mode="Markdown")
+            user_id, "_❌ Kupon anda tidak cukup , undang sebanyak ² Agar bisa di tukarkan!! Minimal_", parse_mode="Markdown")
         return
     amo = int(amo)
     data['balance'][user] -= int(amo)
     data['totalwith'] += int(amo)
     bot_name = bot.get_me().username
     json.dump(data, open('users.json', 'w'))
-    bot.send_message(user_id, "✅* Withdraw is request to our owner automatically\n\n💹 Payment Channel :- "+PAYMENT_CHANNEL +"*", parse_mode="Markdown")
+    bot.send_message(user_id, "✅* Selamat Kupon Berhasil Ditukarkan Secara Otomatis\n\n💹 Channel Vip  :- "+PAYMENT_CHANNEL +"*", parse_mode="Markdown")
 
     markupp = telebot.types.InlineKeyboardMarkup()
     markupp.add(telebot.types.InlineKeyboardButton(text='🍀 BOT LINK', url=f'https://telegram.me/{bot_name}?start={OWNER_ID}'))
@@ -329,7 +329,7 @@ def amo_with(message):
     send = bot.send_message(PAYMENT_CHANNEL,  "✅* New Withdraw\n\n⭐ Amount - "+str(amo)+f" {TOKEN}\n🦁 User - @"+message.from_user.username+"\n💠 Wallet* - `"+data['wallet'][user]+"`\n☎️ *User Referrals = "+str(
         data['referred'][user])+"\n\n🏖 Bot Link - @"+bot_name+"\n⏩ Please wait our owner will confrim it*", parse_mode="Markdown", disable_web_page_preview=True, reply_markup=markupp)
    except:
-        bot.send_message(message.chat.id, "This command having error pls wait for ficing the glitch by admin")
+        bot.send_message(message.chat.id, "jika bot sering bermasalah mohon tunggu sebentar hingga bot normal kembali")
         bot.send_message(OWNER_ID, "Your bot got an error fix it fast!\n Error on command: "+message.text)
         return
 
