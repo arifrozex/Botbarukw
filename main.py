@@ -98,12 +98,9 @@ def start(message):
         markups = telebot.types.InlineKeyboardMarkup()
         markups.add(telebot.types.InlineKeyboardButton(
             text='🤼‍♂️ Mulai', callback_data='check'))
-        msg_start = "*🟢 Untuk silahkan bergabung dulu 👉  - "
-        for i in CHANNELS:
-            msg_start += f"\n➡️ {i} \n"
-        msg_start += "*"
+        msg_start = "💥 Untuk masuk kesini silahkan bergabung dulu - \n➡️ @heyterbaruu *"
         bot.send_message(user, msg_start,
-                         parse_mode="Markdown", reply_markup=markup)
+                         parse_mode="Markdown", reply_markup=markups)
    except:
         bot.send_message(message.chat.id, "This command having error pls wait for ficing the glitch by admin")
         bot.send_message(OWNER_ID, "Your bot got an error fix it fast!\n Error on command: "+message.text)
@@ -157,12 +154,9 @@ def query_handler(call):
             markup = telebot.types.InlineKeyboardMarkup()
             markup.add(telebot.types.InlineKeyboardButton(
                 text='🤼‍♂️ Mulai', callback_data='check'))
-        msg_start = "*🟢 Untuk silahkan bergabung dulu 👉  - "
-        for i in CHANNELS:
-            msg_start += f"\n➡️ {i} \n"
-        msg_start += "*"
+        msg_start = "💥 Untuk masuk kesini silahkan bergabung dulu - \n➡️ @heyterbaruu *"
         bot.send_message(user, msg_start,
-                         parse_mode="Markdown", reply_markup=markup)
+                         parse_mode="Markdown", reply_markup=markups)
    except:
         bot.send_message(call.message.chat.id, "This command having error pls wait for ficing the glitch by admin")
         bot.send_message(OWNER_ID, "Your bot got an error fix it fast!\n Error on command: "+call.data)
