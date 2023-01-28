@@ -10,9 +10,9 @@ PAYMENT_CHANNEL = "@Jjnjjjgh" #add payment channel here including the '@' sign
 OWNER_ID = 5716083446 #write owner's user id here.. get it from @MissRose_Bot by /id
 CHANNELS = ["@heyterbaruu"] #add channels to be checked here in the format - ["Channel 1", "Channel 2"] 
               #you can add as many channels here and also add the '@' sign before channel username
-Daily_bonus = 0.1 #Put daily bonus amount here!
-Mini_Withdraw = 0.1  #remove 0 and add the minimum withdraw u want to set
-Per_Refer = 0.1 #add per refer bonus here
+Daily_bonus = 10  #Put daily bonus amount here!
+Mini_Withdraw = 5 #remove 0 and add the minimum withdraw u want to set
+Per_Refer = 10 #add per refer bonus here
 
 bot = telebot.TeleBot(BOT_TOKEN)
 
