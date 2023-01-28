@@ -98,7 +98,7 @@ def start(message):
         markups = telebot.types.InlineKeyboardMarkup()
         markups.add(telebot.types.InlineKeyboardButton(
             text='🤼‍♂️ Mulai', callback_data='check'))
-        msg_start = "*🟢 Untuk silahkan bergabung dulu 👉 - \n➡️ f"<b>○ KLIK SINI : <a href='https://t.me/heyterbaruu'> *"
+        msg_start = f"<b>🟢 Untuk silahkan bergabung dulu 👉 - \n➡️ <b>○ KLIK SINI : <a href='https://t.me/heyterbaruu'> "
         bot.send_message(user, msg_start,
                          parse_mode="Markdown", reply_markup=markups)
    except:
