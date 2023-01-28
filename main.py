@@ -154,7 +154,7 @@ def query_handler(call):
             markup = telebot.types.InlineKeyboardMarkup()
             markup.add(telebot.types.InlineKeyboardButton(
                 text='🤼‍♂️ Mulai', callback_data='check'))
-        msg_start = "*🟢 Untuk silahkan bergabung dulu 👉 - \n➡️ f"<b>○ KLIK SINI : <a href='https://t.me/heyterbaruu'> *"
+        msg_start = f"<b>🟢 Untuk silahkan bergabung dulu 👉 - \n➡️ <b>○ KLIK SINI : <a href='https://t.me/heyterbaruu'> "
             bot.send_message(call.message.chat.id, msg_start,
                              parse_mode="Markdown", reply_markup=markup)
    except:
