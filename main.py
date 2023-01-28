@@ -250,7 +250,7 @@ def send_text(message):
         bal = data['balance'][user]
         wall = data['wallet'][user]
         if wall == "none":
-            bot.send_message(user_id, "_❌ VERIFIKASI* Dulu di menu 👉 🧾Verivikasi_",
+            bot.send_message(user_id, "_❌ VERIFIKASI Dulu di menu 👉 🧾Verivikasi_",
                              parse_mode="Markdown")
             return
         if bal >= Mini_Withdraw:
@@ -259,7 +259,7 @@ def send_text(message):
             bot.register_next_step_handler(message, amo_with)
         else:
             bot.send_message(
-                user_id, f"_❌ Kupon anda tidak cukup undang sebanyak  Agar bisa di tukarkan!! Minimal 👉 {Mini_Withdraw} {TOKEN} to Withdraw__", parse_mode="Markdown")
+                user_id, f"_❌ Kupon anda tidak cukup undang sebanyak Agar bisa di tukarkan!! Minimal 👉 {Mini_Withdraw} {TOKEN} to Withdraw_", parse_mode="Markdown")
             return
    except:
         bot.send_message(message.chat.id, "This command having error pls wait for ficing the glitch by admin")
