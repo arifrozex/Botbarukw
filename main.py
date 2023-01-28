@@ -3,17 +3,16 @@ import json
 import telebot
 
 ##TOKEN DETAILS
-TOKEN = "KUPON"
+TOKEN = "TRON"
 
-BOT_TOKEN = "5861126009:AAFqHO50PoX96CMAMj-VNt-jmwWG6xLcQ2o"
-PAYMENT_CHANNEL = "@Jjnjjjgh" #add payment channel here including the '@' sign
-OWNER_ID = 5716083446 #write owner's user id here.. get it from @MissRose_Bot by /id
-CHANNELS = ["@heyterbaruu"] #add channels to be checked here in the format - ["Channel 1", "Channel 2"] 
+BOT_TOKEN = "YOUR BOT TOKEN"
+PAYMENT_CHANNEL = "@PAYMENTCHANNELUSERNAME" #add payment channel here including the '@' sign
+OWNER_ID = 1194007250 #write owner's user id here.. get it from @MissRose_Bot by /id
+CHANNELS = ["@CHECKCHANNEL"] #add channels to be checked here in the format - ["Channel 1", "Channel 2"] 
               #you can add as many channels here and also add the '@' sign before channel username
-Daily_bonus = 500 #Put daily bonus amount here!
-Mini_Withdraw = 100  #remove 0 and add the minimum withdraw u want to set
-Per_Refer = 1000 #add per refer bonus here
-
+Daily_bonus = 0.001 #Put daily bonus amount here!
+Mini_Withdraw = 0.5  #remove 0 and add the minimum withdraw u want to set
+Per_Refer = 0.0001 #add per refer bonus here
 
 bot = telebot.TeleBot(BOT_TOKEN)
 
@@ -30,8 +29,8 @@ bonus = {}
 def menu(id):
     keyboard = telebot.types.ReplyKeyboardMarkup(True)
     keyboard.row('🆔 Account')
-    keyboard.row('🙌🏻 Undang', '🎁 Bonus', '💸 Withdraw')
-    keyboard.row('🧾 VERIFIKASI ', '📊Statistics')
+    keyboard.row('🙌🏻 Referrals', '🎁 Bonus', '💸 Withdraw')
+    keyboard.row('🧾 VERIFIKASI', '📊Statistics')
     bot.send_message(id, "*🏡 Home*", parse_mode="Markdown",
                      reply_markup=keyboard)
 
@@ -184,9 +183,9 @@ def send_text(message):
         msg = accmsg.format(message.from_user.first_name,
                             wallet, balance, TOKEN)
         bot.send_message(message.chat.id, msg, parse_mode="Markdown")
-    if message.text == '🙌🏻 Undang':
+    if message.text == '🙌🏻 Referrals':
         data = json.load(open('users.json', 'r'))
-        ref_msg = "*⏯️ Total Udang : {} Users\n\n👥 Undang System\n\n1 Level:\n🥇 Level°1 - {} {}\n\n🔗 Undang Link ⬇️\n{}*"
+        ref_msg = "*⏯️ Total Invites : {} Users\n\n👥 Refferrals System\n\n1 Level:\n🥇 Level°1 - {} {}\n\n🔗 Referral Link ⬇️\n{}*"
 
         bot_name = bot.get_me().username
         user_id = message.chat.id
@@ -201,13 +200,13 @@ def send_text(message):
             bot_name, message.chat.id)
         msg = ref_msg.format(ref_count, Per_Refer, TOKEN, ref_link)
         bot.send_message(message.chat.id, msg, parse_mode="Markdown")
-    if message.text == "🧾 VERIFIKASI ":
+    if message.text == "🧾 VERIFIKASI":
         user_id = message.chat.id
         user = str(user_id)
 
         keyboard = telebot.types.ReplyKeyboardMarkup(True)
         keyboard.row('🚫 Cancel')
-        send = bot.send_message(message.chat.id, "__Silahkan Ketik YES untuk mengisi data_",
+        send = bot.send_message(message.chat.id, "_⚠️Send your TRX Wallet Address._",
                                 parse_mode="Markdown", reply_markup=keyboard)
         # Next message will call the name_handler function
         bot.register_next_step_handler(message, trx_address)
@@ -271,7 +270,7 @@ def trx_address(message):
    try:
     if message.text == "🚫 Cancel":
         return menu(message.chat.id)
-    if len(message.text) == 3:
+    if len(message.text) == 34:
         user_id = message.chat.id
         user = str(user_id)
         data = json.load(open('users.json', 'r'))
@@ -283,7 +282,7 @@ def trx_address(message):
         return menu(message.chat.id)
     else:
         bot.send_message(
-            message.chat.id, "*⚠️ Silahkan Ketik *YES* untuk mengisi Data*", parse_mode="Markdown")
+            message.chat.id, "*⚠️ It's Not a Valid Trx Address!*", parse_mode="Markdown")
         return menu(message.chat.id)
    except:
         bot.send_message(message.chat.id, "This command having error pls wait for ficing the glitch by admin")
