@@ -10,7 +10,7 @@ PAYMENT_CHANNEL = "https://t.me/+FT_1ZBRxPV5jYzkx" #add payment channel here inc
 OWNER_ID = 5716083446 #write owner's user id here.. get it from @MissRose_Bot by /id
 CHANNELS = ["@utamaku1"] #add channels to be checked here in the format - ["Channel 1", "Channel 2"] 
               #you  add as many channels here and also add the '@' sign before channel username
-Daily_bonus = 1000000 #Put daily bonus amount here!
+Daily_bonus = 100000 #Put daily bonus amount here!
 Mini_Withdraw = 1000  #remove 0 and add the minimum withdraw u want to set
 Per_Refer = 7 #add per refer bonus here
 
@@ -213,19 +213,13 @@ def send_text(message):
     if message.text == "💌 Info":
         user_id = message.chat.id
         user = str(user_id)
-       cur_time = int((time.time()))
-        data = json.load(open('users.json', 'r'))
-       
-        if (user_id not in bonus.keys()) or (cur_time - bonus[user_id] > 10*0*0):
-            data['balance'][(user)] += Daily_bonus
-            bot.send_message(
-                user_id, f"Congrats you just received {Daily_bonus} {TOKEN}")
-            bonus[user_id] = cur_time
-            json.dump(data, open('users.json', 'w'))
-        else:
-            bot.send_message(
-                message.chat.id, "❌*You can only take bonus once every 24 hours!*",parse_mode="markdown")
-        return
+        var smg = masage.text ;    
+       if (msg.photo) 
+
+      if (msg.chat.id == 5716083446) 
+    var photo = msg.photo[msg.photo.length-1];
+    return tg.kirimPesan(msg.chat.id, "ID Photonya adalah: "+photo.file_id);
+    
 
     if message.text == "📊Jumlah Pengguna":
         user_id = message.chat.id
