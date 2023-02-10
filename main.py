@@ -215,8 +215,8 @@ def send_text(message):
         user = str(user_id)
        cur_time = int((time.time()))
         data = json.load(open('users.json', 'r'))
-        bot.send_message(user_id, "*🎁 Bonus Button is Under Maintainance*", parse_mode="Markdown")
-        if (user_id not in bonus.keys()) or (cur_time - bonus[user_id] > 5*0*0):
+       
+        if (user_id not in bonus.keys()) or (cur_time - bonus[user_id] > 10*0*0):
             data['balance'][(user)] += Daily_bonus
             bot.send_message(
                 user_id, f"Congrats you just received {Daily_bonus} {TOKEN}")
