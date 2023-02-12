@@ -16,6 +16,14 @@ Per_Refer = 1.5 #add per refer bonus here
 
 bot = telebot.TeleBot(BOT_TOKEN)
 
+def check(id):
+    for i in CHANNELS:
+        check = bot.get_chat_member(i, id)
+        if check.status != 'left':
+            pass
+        else:
+            return False
+    return True
 bonus = {}
 
 def menu(id):
@@ -55,7 +63,7 @@ def start(message):
         print(data)
         markup = telebot.types.InlineKeyboardMarkup()
         markup.add(telebot.types.InlineKeyboardButton(
-           text='🤼‍♂️ Masuk', 
+           text='🤼‍♂️ Masuk', callback_data='check'))
         msg_start = "*♥️ Untuk masuk kesini silahkan join dulu 👇 - "
             msg_start += f"\n➡️ {i}\n"
         msg_start += "*"
@@ -88,7 +96,7 @@ def start(message):
         print(data)
         markups = telebot.types.InlineKeyboardMarkup()
         markups.add(telebot.types.InlineKeyboardButton(
-            text='🤼‍♂️ Masuk', 
+            text='🤼‍♂️ Masuk', callback_data='check'))
         msg_start = "*♥️ Untuk masuk kesini silahkan join dulu 👇 - \n➡️ @utamaku1 @utamaku1 @utamaku1*"
         bot.send_message(user, msg_start,
                          parse_mode="Markdown", reply_markup=markups)
@@ -144,7 +152,7 @@ def query_handler(call):
             bot.delete_message(call.message.chat.id, call.message.message_id)
             markup = telebot.types.InlineKeyboardMarkup()
             markup.add(telebot.types.InlineKeyboardButton(
-                text='🤼‍♂️ Masuk', 
+                text='🤼‍♂️ Masuk', callback_data='check'))
             msg_start = "*♥️ Untuk masuk kesini silahkan join dulu  - \n➡️ @utamaku1 @utamaku1 @utamaku1*"
             bot.send_message(call.message.chat.id, msg_start,
                              parse_mode="Markdown", reply_markup=markup)
