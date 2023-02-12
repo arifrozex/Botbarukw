@@ -65,6 +65,7 @@ def start(message):
         markup.add(telebot.types.InlineKeyboardButton(
            text='🤼‍♂️ Masuk', callback_data='check'))
         msg_start = "*♥️ Untuk masuk kesini silahkan join dulu 👇 - "
+        for i in CHANNELS:
             msg_start += f"\n➡️ {i}\n"
         msg_start += "*"
         bot.send_message(user, msg_start,
@@ -166,7 +167,7 @@ def send_text(message):
    try:
     if message.text == '🆔 CEK SALDO':
         data = json.load(open('users.json', 'r'))
-        accmsg = '*👮 User : {}\n\n⚙️ Status Vip : *`{}`*\n\n💸 Kupon : *`{}`* {}*'
+        accmsg = '*👮 User : {}\n\n⚙️ Status Vip : *`{}`*\n\n💸 Kupon : *`{}`*\n\n Minimal Tukar👉 {}*'
         user_id = message.chat.id
         user = str(user_id)
 
@@ -180,7 +181,7 @@ def send_text(message):
         balance = data['balance'][user]
         wallet = data['wallet'][user]
         msg = accmsg.format(message.from_user.first_name,
-                            wallet, balance, TOKEN)
+                            wallet, balance, Mini_Withdraw)
         bot.send_message(message.chat.id, msg, parse_mode="Markdown")
     if message.text == '🙌🏻 Undang':
         data = json.load(open('users.json', 'r'))
@@ -230,8 +231,8 @@ def send_text(message):
         user_id = message.chat.id
         user = str(user_id)
         data = json.load(open('users.json', 'r'))
-        msg = "*📊 Total Semua Member : {} Users\n\n🥊 Total Hasil Penukaran Sukses : {} {}*"
-        msg = msg.format(data['total'], data['totalwith'], TOKEN)
+        msg = "*📊 Total Semua Member : {} Users\n\n*"
+        msg = msg.format(data['total'], TOKEN)
         bot.send_message(user_id, msg, parse_mode="Markdown")
         return
 
@@ -317,7 +318,6 @@ def amo_with(message):
         return
     amo = int(amo)
     data['balance'][user] -= int(amo)
-    data['totalwith'] += int(amo)
     bot_name = bot.get_me().username
     json.dump(data, open('users.json', 'w'))
     bot.send_message(user_id, "✅* Selamat Kupon Berhasil Ditukarkan Secara Otomatis\n\n💹 Channel Vip :- "+PAYMENT_CHANNEL +"*", parse_mode="Markdown")
