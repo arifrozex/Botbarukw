@@ -16,13 +16,6 @@ Per_Refer = 1.5 #add per refer bonus here
 
 bot = telebot.TeleBot(BOT_TOKEN)
 
-def check(id)
-        check = bot.get_chat_member(i, id)
-        if check.status != 'left':
-            pass
-        else:
-            return False
-    return True
 bonus = {}
 
 def menu(id):
