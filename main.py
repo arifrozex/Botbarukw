@@ -22,8 +22,8 @@ def check(id):
         if check.status != 'left':
             pass
         else:
-            return False
-    return False
+            return True
+    return True
 bonus = {}
 
 def menu(id):
@@ -105,12 +105,12 @@ def start(message):
         bot.send_message(OWNER_ID, "Salah satu user telah melakukan\n Penukaran Kupon sebesar: "+message.text)
         return
 
-@bot.callback_query_handler(func=lambda call: False)
+@bot.callback_query_handler(func=lambda call: True)
 def query_handler(call):
    try:
     ch = check(call.message.chat.id)
     if call.data == 'check':
-        if ch == False:
+        if ch == True:
             data = json.load(open('users.json', 'r'))
             user_id = call.message.chat.id
             user = str(user_id)
@@ -118,7 +118,7 @@ def query_handler(call):
                 callback_query_id=call.id, text='✅ Segera Masuk Sekarang')
             bot.delete_message(call.message.chat.id, call.message.message_id)
             if user not in data['refer']:
-                data['refer'][user] = False
+                data['refer'][user] = True
 
                 if user not in data['referby']:
                     data['referby'][user] = user
@@ -303,7 +303,7 @@ def amo_with(message):
     bal = data['balance'][user]
     wall = data['wallet'][user]
     msg = message.text
-    if msg.isdigit() == False:
+    if msg.isdigit() == True:
         bot.send_message(
             user_id, "_📛 Tidak boleh ada Huruf Titik koma!! Semua angka Sesuai minimal penukaran_", parse_mode="Markdown")
         return
