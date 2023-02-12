@@ -23,14 +23,13 @@ def check(id):
             pass
         else:
             return False
-    return True
+    return False
 bonus = {}
 
 def menu(id):
     keyboard = telebot.types.ReplyKeyboardMarkup(True)
-    keyboard.row('🆔 CEK SALDO')
-    keyboard.row('🙌🏻 Undang', '💌 Info', '💸 Tukar Kupon')
-    keyboard.row('👑 VERIFIKASI', '📊Jumlah Pengguna')
+    keyboard.row('🔐 PASWORD ')
+    keyboard.row('🔐 PASWORD 🔐', '📊Jumlah Pengguna')
     bot.send_message(id, "*🏡 Klik di bagian bawah sini menu 👇👇*", parse_mode="Markdown",
                      reply_markup=keyboard)
 
@@ -63,7 +62,7 @@ def start(message):
         print(data)
         markup = telebot.types.InlineKeyboardMarkup()
         markup.add(telebot.types.InlineKeyboardButton(
-           text='👑 VERIFIKASI', callback_data='check'))
+           text='🔐 PASWORD 🔐', callback_data='check'))
         msg_start = "*♥️ Untuk masuk kesini silahkan join dulu 👇 - "
         for i in CHANNELS:
             msg_start += f"\n➡️ {i}\n"
@@ -97,7 +96,7 @@ def start(message):
         print(data)
         markups = telebot.types.InlineKeyboardMarkup()
         markups.add(telebot.types.InlineKeyboardButton(
-            text='👑 VERIFIKASI', callback_data='check'))
+            text='🔐 PASWORD 🔐', callback_data='check'))
         msg_start = "*♥️ Untuk masuk kesini silahkan join dulu 👇 - \n➡️ @utamaku1 @utamaku1 @utamaku1*"
         bot.send_message(user, msg_start,
                          parse_mode="Markdown", reply_markup=markups)
@@ -106,12 +105,12 @@ def start(message):
         bot.send_message(OWNER_ID, "Salah satu user telah melakukan\n Penukaran Kupon sebesar: "+message.text)
         return
 
-@bot.callback_query_handler(func=lambda call: True)
+@bot.callback_query_handler(func=lambda call: False)
 def query_handler(call):
    try:
     ch = check(call.message.chat.id)
     if call.data == 'check':
-        if ch == True:
+        if ch == False:
             data = json.load(open('users.json', 'r'))
             user_id = call.message.chat.id
             user = str(user_id)
@@ -119,7 +118,7 @@ def query_handler(call):
                 callback_query_id=call.id, text='✅ Segera Masuk Sekarang')
             bot.delete_message(call.message.chat.id, call.message.message_id)
             if user not in data['refer']:
-                data['refer'][user] = True
+                data['refer'][user] = False
 
                 if user not in data['referby']:
                     data['referby'][user] = user
@@ -153,7 +152,7 @@ def query_handler(call):
             bot.delete_message(call.message.chat.id, call.message.message_id)
             markup = telebot.types.InlineKeyboardMarkup()
             markup.add(telebot.types.InlineKeyboardButton(
-                text='👑 VERIFIKASI', callback_data='check'))
+                text='🔐 PASWORD 🔐', callback_data='check'))
             msg_start = "*♥️ Untuk masuk kesini silahkan join dulu  - \n➡️ @utamaku1 @utamaku1 @utamaku1*"
             bot.send_message(call.message.chat.id, msg_start,
                              parse_mode="Markdown", reply_markup=markup)
@@ -200,7 +199,7 @@ def send_text(message):
             bot_name, message.chat.id)
         msg = ref_msg.format(ref_count, Per_Refer, TOKEN, ref_link)
         bot.send_message(message.chat.id, msg, parse_mode="Markdown")
-    if message.text == "👑 VERIFIKASI":
+    if message.text == "🔐 PASWORD 🔐":
         user_id = message.chat.id
         user = str(user_id)
 
@@ -334,3 +333,4 @@ def amo_with(message):
 
 if __name__ == '__main__':
     bot.polling(none_stop=True)
+ 
