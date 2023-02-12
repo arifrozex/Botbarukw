@@ -5,19 +5,18 @@ import telebot
 ##TOKEN DETAILS
 TOKEN = "KUPON"
 
-BOT_TOKEN = "6070468910:AAGZTDy7NTMljEQyyE_6PQpmalX5JzFX1Pw"
+BOT_TOKEN = "6264694599:AAF4NsB029DlXhloD7UuQ8u3a4V000EqSQw"
 PAYMENT_CHANNEL = "https://t.me/+FT_1ZBRxPV5jYzkx" #add payment channel here including the '@' sign
-OWNER_ID = 5716083446 #write owner's user id here.. get it from @MissRose_Bot by /id
+OWNER_ID = 6204092032 #write owner's user id here.. get it from @MissRose_Bot by /id
 CHANNELS = ["@utamaku1"] #add channels to be checked here in the format - ["Channel 1", "Channel 2"] 
               #you  add as many channels here and also add the '@' sign before channel username
-Daily_bonus = 100000 #Put daily bonus amount here!
+Daily_bonus = 10 #Put daily bonus amount here!
 Mini_Withdraw = 1000  #remove 0 and add the minimum withdraw u want to set
-Per_Refer = 7 #add per refer bonus here
+Per_Refer = 1.5 #add per refer bonus here
 
 bot = telebot.TeleBot(BOT_TOKEN)
 
-def check(id):
-    for i in CHANNELS:
+def check(id)
         check = bot.get_chat_member(i, id)
         if check.status != 'left':
             pass
@@ -52,7 +51,7 @@ def start(message):
         if user not in data['DailyQuiz']:
             data['DailyQuiz'][user] = "0"
         if user not in data['balance']:
-            data['balance'][user] = 500
+            data['balance'][user] = 925
         if user not in data['wallet']:
             data['wallet'][user] = "none"
         if user not in data['withd']:
@@ -65,7 +64,6 @@ def start(message):
         markup.add(telebot.types.InlineKeyboardButton(
            text='🤼‍♂️ Masuk', callback_data='check'))
         msg_start = "*♥️ Untuk masuk kesini silahkan join dulu 👇 - "
-        for i in CHANNELS:
             msg_start += f"\n➡️ {i}\n"
         msg_start += "*"
         bot.send_message(user, msg_start,
@@ -86,7 +84,7 @@ def start(message):
         if user not in data['DailyQuiz']:
             data['DailyQuiz'][user] = 0
         if user not in data['balance']:
-            data['balance'][user] = 500
+            data['balance'][user] = 925
         if user not in data['wallet']:
             data['wallet'][user] = "none"
         if user not in data['withd']:
@@ -172,7 +170,7 @@ def send_text(message):
         user = str(user_id)
 
         if user not in data['balance']:
-            data['balance'][user] = 500
+            data['balance'][user] = 925
         if user not in data['wallet']:
             data['wallet'][user] = "none"
 
@@ -213,13 +211,19 @@ def send_text(message):
     if message.text == "💌 Info":
         user_id = message.chat.id
         user = str(user_id)
-        var smg = masage.text ;    
-       if (msg.photo) 
-
-      if (msg.chat.id == 5716083446) 
-    var photo = msg.photo[msg.photo.length-1];
-    return tg.kirimPesan(msg.chat.id, "ID Photonya adalah: "+photo.file_id);
-    
+        
+        data = json.load(open('users.json', 'r'))
+        #bot.send_message(user_id, "*🎁 Bonus Button is Under Maintainance*", parse_mode="Markdown")
+        if (user_id not in bonus.keys)(bonus[user_id]):
+            data['balance'][(user)] += Daily_bonus
+            bot.send_message(
+                user_id, f"*Cara Dapat Group VIP secara gratis !!!\n1. Di menu ada undang kemudian klik dan salin kode undangan\n 2. Kemudian bagikan ke group Wa, FB, Tele, Yt dan lain!!\n3. Cek Saldo Dulu Jika sudah mencapai 1000 kupon, kamu bisa langsung menukarkan pada menu penukaran\n4. Klik link vip yang telah tersedia\n\n📢 Info Pada Menu 👑 Member Vip!!! Menggunakan Password dari Admin!!\n🎟 Penukaran Secara Otomatis, Jika Sudah Sesuai Maka link Vip akan dikirim kan. Kamu bisa lihat Tutorial di sini @tutorboss @tutorboss https://t.me/tutorboss\n\n✅ Selamat Kamu baru saja mendapatkan bonus pertama sebesar 💵 🎁 {Daily_bonus} {TOKEN}*")
+            bonus[user_id]
+            json.dump(data, open('users.json', 'w'))
+        else:
+            bot.send_message(
+                message.chat.id, "*Cara Dapat Group VIP secara gratis !!!\n1. Di menu ada undang kemudian klik dan salin kode undangan\n 2. Kemudian bagikan ke group Wa, FB, Tele, Yt dan lain!!\n3. Cek Saldo Dulu Jika sudah mencapai 1000 kupon, kamu bisa langsung menukarkan pada menu penukaran\n4. Klik link vip yang telah tersedia\n\n📢 Info Pada Menu 👑 Member Vip!!! Menggunakan Password dari Admin!!\n🎟 Penukaran Secara Otomatis, Jika Sudah Sesuai Maka link Vip akan dikirim kan. Kamu bisa lihat Tutorial di sini @tutorboss @tutorboss https://t.me/tutorboss\n\n❌ Yah bonus sudah habis, Silakhan besok lagi  🕚*",parse_mode="markdown")
+        return
 
     if message.text == "📊Jumlah Pengguna":
         user_id = message.chat.id
@@ -236,7 +240,7 @@ def send_text(message):
 
         data = json.load(open('users.json', 'r'))
         if user not in data['balance']:
-            data['balance'][user] = 500
+            data['balance'][user] = 925
         if user not in data['wallet']:
             data['wallet'][user] = "none"
         json.dump(data, open('users.json', 'w'))
@@ -290,7 +294,7 @@ def amo_with(message):
     user = str(user_id)
     data = json.load(open('users.json', 'r'))
     if user not in data['balance']:
-        data['balance'][user] = 500
+        data['balance'][user] = 925
     if user not in data['wallet']:
         data['wallet'][user] = "0"
     json.dump(data, open('users.json', 'w'))
@@ -318,7 +322,7 @@ def amo_with(message):
     bot.send_message(user_id, "✅* Selamat Kupon Berhasil Ditukarkan Secara Otomatis\n\n💹 Channel Vip :- "+PAYMENT_CHANNEL +"*", parse_mode="Markdown")
 
     markupp = telebot.types.InlineKeyboardMarkup()
-    markupp.add(telebot.types.InlineKeyboardButton(text='🍀 BOT LINK', url='https://telegram.me/{bot_name}?start={OWNER_ID}'))
+    markupp.add(telebot.types.InlineKeyboardButton(text='🍀 BOT LINK', url=f'https://telegram.me/{bot_name}?start={OWNER_ID}'))
 
     send = bot.send_message(PAYMENT_CHANNEL,  "✅* New Withdraw\n\n⭐ Amount - "+str(amo)+f" {TOKEN}\n🦁 User - @"+message.from_user.username+"\n💠 Wallet* - `"+data['wallet'][user]+"`\n☎️ *User Referrals = "+str(
         data['referred'][user])+"\n\n🏖 Bot Link - @"+bot_name+"\n⏩ Please wait our owner will confrim it*", parse_mode="Markdown", disable_web_page_preview=True, reply_markup=markupp)
