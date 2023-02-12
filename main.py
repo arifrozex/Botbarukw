@@ -16,13 +16,151 @@ Per_Refer = 1.5 #add per refer bonus here
 
 bot = telebot.TeleBot(BOT_TOKEN)
 
+def check(id):
+    for i in CHANNELS:
+        check = bot.get_chat_member(i, id)
+        if check.status != 'left':
+            pass
+        else:
+            return False
+    return True
+bonus = {}
+
 def menu(id):
     keyboard = telebot.types.ReplyKeyboardMarkup(True)
-    keyboard.row('🆔 CEK SALD')
-    keyboard.row('👑 VERIFIKAS')
+    keyboard.row('🆔 CEK SALDO')
+    keyboard.row('🙌🏻 Undang', '💌 Info', '💸 Tukar Kupon')
+    keyboard.row('👑 VERIFIKASI', '📊Jumlah Pengguna')
     bot.send_message(id, "*🏡 Klik di bagian bawah sini menu 👇👇*", parse_mode="Markdown",
                      reply_markup=keyboard)
 
+@bot.message_handler(commands=['start'])
+def start(message):
+   try:
+    user = message.chat.id
+    msg = message.text
+    if msg == '/start':
+        user = str(user)
+        data = json.load(open('users.json', 'r'))
+        if user not in data['referred']:
+            data['referred'][user] = 0
+            data['total'] = data['total'] + 1
+        if user not in data['referby']:
+            data['referby'][user] = user
+        if user not in data['checkin']:
+            data['checkin'][user] = 0
+        if user not in data['DailyQuiz']:
+            data['DailyQuiz'][user] = "0"
+        if user not in data['balance']:
+            data['balance'][user] = 925
+        if user not in data['wallet']:
+            data['wallet'][user] = "none"
+        if user not in data['withd']:
+            data['withd'][user] = 0
+        if user not in data['id']:
+            data['id'][user] = data['total']+1
+        json.dump(data, open('users.json', 'w'))
+        print(data)
+        markup = telebot.types.InlineKeyboardMarkup()
+        markup.add(telebot.types.InlineKeyboardButton(
+           text='👑 VERIFIKASI', callback_data='check'))
+        msg_start = "*♥️ Untuk masuk kesini silahkan join dulu 👇 - "
+        for i in CHANNELS:
+            msg_start += f"\n➡️ {i}\n"
+        msg_start += "*"
+        bot.send_message(user, msg_start,
+                         parse_mode="Markdown", reply_markup=markup)
+    else:
+
+        data = json.load(open('users.json', 'r'))
+        user = message.chat.id
+        user = str(user)
+        refid = message.text.split()[1]
+        if user not in data['referred']:
+            data['referred'][user] = 0
+            data['total'] = data['total'] + 1
+        if user not in data['referby']:
+            data['referby'][user] = refid
+        if user not in data['checkin']:
+            data['checkin'][user] = 0
+        if user not in data['DailyQuiz']:
+            data['DailyQuiz'][user] = 0
+        if user not in data['balance']:
+            data['balance'][user] = 925
+        if user not in data['wallet']:
+            data['wallet'][user] = "none"
+        if user not in data['withd']:
+            data['withd'][user] = 0
+        if user not in data['id']:
+            data['id'][user] = data['total']+1
+        json.dump(data, open('users.json', 'w'))
+        print(data)
+        markups = telebot.types.InlineKeyboardMarkup()
+        markups.add(telebot.types.InlineKeyboardButton(
+            text='👑 VERIFIKASI', callback_data='check'))
+        msg_start = "*♥️ Untuk masuk kesini silahkan join dulu 👇 - \n➡️ @utamaku1 @utamaku1 @utamaku1*"
+        bot.send_message(user, msg_start,
+                         parse_mode="Markdown", reply_markup=markups)
+   except:
+        bot.send_message(message.chat.id, "*Mukin bot sedang Error coba ulang kembali *")
+        bot.send_message(OWNER_ID, "Salah satu user telah melakukan\n Penukaran Kupon sebesar: "+message.text)
+        return
+
+@bot.callback_query_handler(func=lambda call: True)
+def query_handler(call):
+   try:
+    ch = check(call.message.chat.id)
+    if call.data == 'check':
+        if ch == True:
+            data = json.load(open('users.json', 'r'))
+            user_id = call.message.chat.id
+            user = str(user_id)
+            bot.answer_callback_query(
+                callback_query_id=call.id, text='✅ Segera Masuk Sekarang')
+            bot.delete_message(call.message.chat.id, call.message.message_id)
+            if user not in data['refer']:
+                data['refer'][user] = True
+
+                if user not in data['referby']:
+                    data['referby'][user] = user
+                    json.dump(data, open('users.json', 'w'))
+                if int(data['referby'][user]) != user_id:
+                    ref_id = data['referby'][user]
+                    ref = str(ref_id)
+                    if ref not in data['balance']:
+                        data['balance'][ref] = 0
+                    if ref not in data['referred']:
+                        data['referred'][ref] = 0
+                    json.dump(data, open('users.json', 'w'))
+                    data['balance'][ref] += Per_Refer
+                    data['referred'][ref] += 1
+                    bot.send_message(
+                        ref_id, f"*🚹 Undangan kamu  masuk Level 1, semangat : +{Per_Refer} {TOKEN}*", parse_mode="Markdown")
+                    json.dump(data, open('users.json', 'w'))
+                    return menu(call.message.chat.id)
+
+                else:
+                    json.dump(data, open('users.json', 'w'))
+                    return menu(call.message.chat.id)
+
+            else:
+                json.dump(data, open('users.json', 'w'))
+                menu(call.message.chat.id)
+
+        else:
+            bot.answer_callback_query(
+                callback_query_id=call.id, text='❌ Kamu belum Join silahkan join dulu ya ..agar bisa masuk')
+            bot.delete_message(call.message.chat.id, call.message.message_id)
+            markup = telebot.types.InlineKeyboardMarkup()
+            markup.add(telebot.types.InlineKeyboardButton(
+                text='👑 VERIFIKASI', callback_data='check'))
+            msg_start = "*♥️ Untuk masuk kesini silahkan join dulu  - \n➡️ @utamaku1 @utamaku1 @utamaku1*"
+            bot.send_message(call.message.chat.id, msg_start,
+                             parse_mode="Markdown", reply_markup=markup)
+   except:
+        bot.send_message(call.message.chat.id, "*Mukin bot sedang Error coba ulang kembali *")
+        bot.send_message(OWNER_ID, "Salah satu user telah melakukan\n Penukaran Kupon sebesar: "+call.data)
+        return
 
 @bot.message_handler(content_types=['text'])
 def send_text(message):
